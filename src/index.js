@@ -18,12 +18,14 @@ import './models/circular.js'
 import './models/documento_aux_cal.js'
 import './models/maquinaria_reciclaje.js'
 
+const port = process.env.port || 3000;
+const host  = ('RENDER' in process.env)? '0.0.0.0': 'localhost';
 async function main() {
 
     try {
         await sequelize.sync({ force: false }); //creacion de estructura de bbdd postgres en base al modelo (sequelize) 
         await sequelize.authenticate();
-        app.listen(3000)
+        app.listen(host, port)
         console.log('escuchando puerto 3000', 3000)
     }
     catch (error) {
