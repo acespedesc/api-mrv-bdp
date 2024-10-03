@@ -18,18 +18,17 @@ import './models/circular.js'
 import './models/documento_aux_cal.js'
 import './models/maquinaria_reciclaje.js'
 
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 const host  = ('RENDER' in process.env)? '0.0.0.0': 'localhost';
 async function main() {
 
     try {
-        await sequelize.sync({ force: false }); //creacion de estructura de bbdd postgres en base al modelo (sequelize) 
+        await sequelize.sync({ force: false }); // creación de estructura de bbdd postgres en base al modelo (sequelize)
         await sequelize.authenticate();
-        app.listen(host, port)
-        console.log('escuchando puerto 3000', 3000)
-    }
-    catch (error) {
-        console.error('Habilitar la conexion a la base de datos')
+        app.listen(port, host); // Asegúrate de que el orden de argumentos sea correcto
+        console.log(`Servidor escuchando en http://${host}:${port}`);
+    } catch (error) {
+        console.error('Error al habilitar la conexión a la base de datos', error);
     }
 }
 
